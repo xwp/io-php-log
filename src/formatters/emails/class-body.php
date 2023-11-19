@@ -22,14 +22,14 @@ class Body implements Formattable {
      * @return string The formatted message. Example:
      */
     public function format( string $level, \Stringable|string $message, array $context = [] ): string {
-        return sprintf(
-            '%1$s.%2$s %3$s Context: %4$s \r\n\r\n --- Trace --- \r\n\r\n %5$s',
-            strtoupper( wp_get_environment_type() ),
-            strtoupper( $level ),
+        return implode( ' ', [
+            strtoupper( wp_get_environment_type() ) . '.' . strtoupper( $level ),
             $message,
+            "\r\n\r\n --- Context --- \r\n\r\n",
             wp_json_encode( $context ),
-            $this->generate_trace( $context )
-        );
+            "\r\n\r\n --- Trace --- \r\n\r\n",
+            $this->generate_trace( $context ),
+        ] );
     }
 
     /**
@@ -58,10 +58,14 @@ class Body implements Formattable {
 
         ob_end_clean();
 
+        // Prepares the method name that we can recognise it and remove it from the trace.
+        // Example: XWP\Log\Formatters\Emails\Body::generate_trace => XWP\\Log\\Formatters\\Emails\\Body->generate_trace
+        $method = wp_slash( str_replace('::', '->', __METHOD__ ) );
+
         // Remove first item from backtrace as it's this method which is redundant.
-        $trace = preg_replace ('/^#0\s+' . __METHOD__ . "[^\n]*\n/", '', $trace, 1 );
+        $trace = preg_replace ('/^#0.+' . $method . "[^\n]*\n/", '', $trace, 1 );
 
         // Renumber backtrace items.
-        return preg_replace ('/^#(\d+)/me', '\'#\' . ($1 - 1)', $trace );
+        return preg_replace_callback('/^#(\d+)/m', static fn( $matches ) => '#' . ( $matches[ 1 ] - 1 ), $trace );
     }
 }
