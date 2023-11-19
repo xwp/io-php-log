@@ -1,0 +1,15 @@
+{
+  "name": "xwp/log",
+  "version": "0.0.1",
+  "description": "Logging library for WordPress Enterprise Applications",
+  "type": "library",
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require": {
+    "php": ">=8.0",
+    "psr/log": "^3.0.0"
+  }
+}
