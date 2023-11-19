@@ -2,6 +2,8 @@
 
 namespace XWP\Log\Configs;
 
+use XWP\Log\LogLevel;
+
 /**
  * Email Configuration Instance.
  *
@@ -18,7 +20,7 @@ class Email {
      */
     public function __construct(
         public array $emails,
-        public array $levels = [ 'alert' ]
+        public array $levels = [ LogLevel::ERROR, LogLevel::EMERGENCY ]
     ) {
         foreach ( $this->emails as $email ) {
             $this->ensure_email( $email );
