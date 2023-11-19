@@ -4,7 +4,6 @@ namespace XWP\Log\Channels;
 
 use Generator;
 use XWP\Log\Formatters;
-use XWP\Log\Configs\Storage;
 use XWP\Log\Contracts\Channel;
 use XWP\Log\Contracts\FileReader;
 use XWP\Log\Contracts\Formattable;
