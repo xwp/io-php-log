@@ -102,9 +102,9 @@ use XWP\Log\Channels\File;
 
 Sometimes when something critical happens in your application you would love to get notified about it.
 For such cases, you can use `Email` channel. Email channel will send you an email with the log message and context.
-You can also specify level of the message that should trigger the email, by default it's `LogLevel::ERROR` and `LogLevel::CRITICAL`.
+You can also specify level of the message that should trigger the email, by default it's `LogLevel::ALERT` and `LogLevel::CRITICAL`.
 
-When log entry is created with level `LogLevel::ERROR` and `LogLevel::CRITICAL` (by default) or the ones you've specified, the email channel will get notify all recipients.
+When log entry is created with level `LogLevel::ALERT` and `LogLevel::CRITICAL` (by default) or the ones you've specified, the email channel will get notify all recipients.
 
 ```php
 use XWP\Log\Channels\Email;

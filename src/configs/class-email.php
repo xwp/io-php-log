@@ -20,7 +20,7 @@ class Email {
      */
     public function __construct(
         public array $emails,
-        public array $levels = [ LogLevel::ERROR, LogLevel::EMERGENCY ]
+        public array $levels = [ LogLevel::ALERT, LogLevel::EMERGENCY ]
     ) {
         foreach ( $this->emails as $email ) {
             $this->ensure_email( $email );
