@@ -22,7 +22,7 @@ class Runtime implements Channel {
 	 * @param Formattable|null $formatter Optional. The formatter instance.
 	 */
 	public function __construct( protected ?Formattable $formatter = null ) {
-		$this->formatter ??= new \XWP\Log\src\formatters\Base();
+		$this->formatter ??= new Formatters\Base();
 	}
 
 	/**
