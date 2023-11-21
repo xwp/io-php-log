@@ -2,7 +2,6 @@
 
 namespace XWP\Log\Channels;
 
-use WP_CLI;
 use XWP\Log\Contracts\Channel;
 use XWP\Log\Contracts\Formattable;
 use XWP\Log\Formatters;
@@ -50,7 +49,7 @@ class CLI implements Channel {
      * @return void
      */
     protected function write( string $formatted ): void {
-        WP_CLI::log( $formatted );
+        \WP_CLI::log( $formatted );
     }
 
     /**
@@ -59,6 +58,6 @@ class CLI implements Channel {
      * @return bool
      */
     protected function authorize(): bool {
-        return class_exists( '\\WP_CLI' );
+        return ( defined( 'WP_CLI' ) && WP_CLI ) && class_exists( '\\WP_CLI' );
     }
 }
