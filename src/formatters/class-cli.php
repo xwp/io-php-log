@@ -3,6 +3,7 @@
 namespace XWP\Log\Formatters;
 
 use XWP\Log\Contracts\Formattable;
+use XWP\Log\LogLevel;
 
 /**
  * CLI Formatter, formats the message for CLI STDOUT.
@@ -28,10 +29,10 @@ class Cli implements Formattable {
         if ( class_exists( '\\WP_CLI' ) ) {
 
             $color = match ( $level ) {
-                'info' => '%G',    // ['color' => 'green', 'style' => 'bright'],
-                'notice' => '%Y',  // ['color' => 'yellow', 'style' => 'bright'],
-                'warning' => '%C', // ['color' => 'cyan', 'style' => 'bright'],
-                'alert', 'critical', 'emergency', 'error' => '%R', // ['color' => 'red', 'style' => 'bright'],
+                LogLevel::INFO => '%G',    // ['color' => 'green', 'style' => 'bright'],
+                LogLevel::NOTICE => '%Y',  // ['color' => 'yellow', 'style' => 'bright'],
+                LogLevel::WARNING => '%C', // ['color' => 'cyan', 'style' => 'bright'],
+                LogLevel::ALERT, LogLevel::CRITICAL, LogLevel::EMERGENCY, LogLevel::ERROR => '%R', // ['color' => 'red', 'style' => 'bright'],
                 default => '',
             };
 
